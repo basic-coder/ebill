@@ -3,7 +3,7 @@ const ApiFeatures = require('../utils/apiFeatures')
 
 exports.addBill = async(req,res,next) =>{
     const {amount,billDate,paidDate,unitConsumed} = req.body
-    const Bill = await user.create({
+    const Bill = await bill.create({
         amount,billDate,paidDate,unitConsumed
     })
     Bill.save()
@@ -22,7 +22,7 @@ exports.getBillDetails = async(req,res,next) =>{
 exports.getBills = async(req,res,next) =>{
     const resultPerPage = 8;
     const billsCount = await bill.countDocuments();
-    const apiFeature = new ApiFeatures(Product.find(),req.query).filter().pagination(resultPerPage)
+    const apiFeature = new ApiFeatures(bill.find(),req.query).filter().pagination(resultPerPage)
     const bills = await apiFeature.query;
     res.status(200).json( 
         bills,
